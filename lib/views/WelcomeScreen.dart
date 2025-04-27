@@ -1,9 +1,13 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class WelcomScreen extends StatelessWidget{
+class WelcomeScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    return MaterialApp(
+      title: 'Welcome',
+     // home: OnBoardingStart(),
+    );
   }
 }
