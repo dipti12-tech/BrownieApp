@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Splashscreen(),
+      home: SplashScreen(),
       routes: {
         '/views': (context) => WelcomeScreen()
       }

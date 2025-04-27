@@ -1,3 +1,4 @@
+import 'package:browniepoints/utils/colors.dart';
 import 'package:browniepoints/views/AccountCreation.dart';
 import 'package:browniepoints/widgets/CustomButton.dart';
 import 'package:browniepoints/widgets/CustomInputField.dart';
@@ -15,7 +16,7 @@ class LoginScreenNew extends StatelessWidget {
     final firstText = isInvite ? "Your partner is waiting for you to\njoin them" : "Your journey to a more fulfilling\nrelationship begins here";
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFDECCE),
+      backgroundColor: AppColors.onboardingBg,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 16),
@@ -44,7 +45,7 @@ class LoginScreenNew extends StatelessWidget {
                     Text(
                       firstText,
                       style: TextStyle(
-                        color: Color(0xFFDA5A2A),
+                        color: AppColors.onboardingTextColor,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
@@ -88,7 +89,7 @@ class LoginScreenNew extends StatelessWidget {
                 width: double.infinity,
                 child: CustomButton(
                   text: 'Continue',
-                  backgroundColor: const Color(0xFFB7F58C),
+                  backgroundColor: AppColors.btnGetstarted,
                   textColor: Colors.black,
                   onPressed: () {
                     Navigator.push(

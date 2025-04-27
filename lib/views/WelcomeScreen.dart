@@ -2,6 +2,7 @@ import 'package:browniepoints/views/LoginScreen.dart';
 import 'package:browniepoints/views/LoginScreenNew.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/colors.dart';
 import '../widgets/CustomButton.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class WelcomeScreen extends StatelessWidget {
                           SizedBox(height: 40),
                           Text(
                             'Welcome to',
-                            style: TextStyle(fontSize: 20, color: Colors.blue),
+                            style: TextStyle(fontSize: 20, color: AppColors.onboardingOptionTextColor),
                           ),
                           SizedBox(height: 4),
                           Text(
@@ -35,7 +36,7 @@ class WelcomeScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.bold,
-                              color: Colors.blue,
+                              color: AppColors.onboardingOptionTextColor,
                               fontFamily: 'Cursive', // You can use a Google Fonts package for this.
                             ),
                           ),
@@ -60,7 +61,7 @@ class WelcomeScreen extends StatelessWidget {
                     height: 35,
                     child: CustomButton(
                       text: 'Get Started',
-                      backgroundColor: const Color(0xFFB7F58C),
+                      backgroundColor: AppColors.btnGetstarted,
                       textColor: Colors.black,
                       onPressed: () {
                         Navigator.push(
@@ -75,7 +76,7 @@ class WelcomeScreen extends StatelessWidget {
                     height: 35,
                     child: CustomButton(
                       text: 'I Have an Invitation Code',
-                      backgroundColor: const Color(0xFF004D1A),
+                      backgroundColor: AppColors.btnInvite,
                       textColor: Colors.white,
                       onPressed: () {
                         Navigator.push(

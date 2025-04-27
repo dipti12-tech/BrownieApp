@@ -3,6 +3,7 @@ import 'package:browniepoints/widgets/CustomDropdownField.dart';
 import 'package:browniepoints/widgets/CustomInputField.dart';
 import 'package:browniepoints/widgets/CustomLabel.dart';
 import 'package:flutter/material.dart';
+import '../utils/colors.dart';
 import '../widgets/CustomButton.dart';
 
 class AccountCreation extends StatefulWidget {
@@ -17,7 +18,7 @@ class _AccountCreationState extends State<AccountCreation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDECCE), // Light peach background
+      backgroundColor: AppColors.onboardingBg, // Light peach background
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(15),
@@ -48,7 +49,7 @@ class _AccountCreationState extends State<AccountCreation> {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.orange,
+                                color: AppColors.onboardingTextColor,
                               ),
                             ),
                             SizedBox(height: 5),
@@ -189,7 +190,7 @@ class _AccountCreationState extends State<AccountCreation> {
                   width: double.infinity,
                   child: CustomButton(
                     text: 'Continue',
-                    backgroundColor: const Color(0xFFB7F58C),
+                    backgroundColor: AppColors.btnGetstarted,
                     textColor: Colors.black,
                     onPressed: () {
                       Navigator.push(
