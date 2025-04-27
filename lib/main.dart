@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget{
     return MaterialApp(
       home: Splashscreen(),
       routes: {
-        '/views': (context) => WelcomScreen()
+        '/views': (context) => WelcomeScreen()
       }
     );
   }
