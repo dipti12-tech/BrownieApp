@@ -1,102 +1,143 @@
-import 'package:browniepoints/views/AccountCreation.dart';
-import 'package:browniepoints/widgets/CustomButton.dart';
-import 'package:browniepoints/widgets/CustomInputField.dart';
-import 'package:browniepoints/widgets/CustomLabel.dart';
-import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
-  final bool isInvite;
-  const LoginScreen({super.key, this.isInvite = false});
+import 'package:browniepoints/utils/appstring.dart';
+import 'package:browniepoints/utils/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class LoginScreen extends StatefulWidget{
+
+  @override
+  State<StatefulWidget> createState() {
+   return _LoginScreenState();
+  }
+
+}
+
+class _LoginScreenState extends State<LoginScreen>{
 
   @override
   Widget build(BuildContext context) {
-    final labelText = isInvite ? "* Invitation Code" : "* Email Address";
-    final hintText = isInvite ? "Code" : "Email";
-    final firstText = isInvite ? "Your partner is waiting for you to\njoin them" : "Your journey to a more fulfilling\nrelationship begins here";
-
     return Scaffold(
-      backgroundColor: const Color(0xFFFDECCE),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Back button
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.arrow_back, size: 25),
-              ),
-              const SizedBox(height: 10),
+      backgroundColor: AppColors.onboardingBg,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
 
-              // Heading text
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      firstText,
-                      style: TextStyle(
-                        color: Color(0xFFDA5A2A),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      "We’re happy to see you",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+          children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(30,60,0,0),
+              child: Image.asset('assets/images/backbutton.png'),
+              width: 38,
+              height: 38,
+            ),
+
+            Container(
+              padding: EdgeInsets.fromLTRB(50,15,0,0),
+              child: Text(
+                AppStrings.loginTitle,
+                style: GoogleFonts.roboto(
+                  fontSize: 12,
+                  color: AppColors.onboardingTextColor
                 ),
               ),
 
-              const SizedBox(height: 20),
+            ),
+Container(
+    padding: EdgeInsets.fromLTRB(50,0,0,0),
+    child: Text(
+    AppStrings.loginSubTitle,
+    style: GoogleFonts.archivoBlack(
+    fontSize: 12,
+    color: Colors.black
+    ),
+    ),
 
-              // Image (you can replace with actual asset or network image)
-              Center(
-                child: Image.asset(
-                  'assets/images/ic_welcome.png', // Add this image in your assets
-                  height: 340,
-                  fit: BoxFit.contain,
+
+  ),
+
+            Container(
+              margin: EdgeInsets.fromLTRB(30,300,0,0),
+              child: Text(
+                AppStrings.emailaddress,
+                style: TextStyle(color: AppColors.emailaddress, fontSize: 16),
+              ),
+
+
+            ),
+            Container(
+
+    margin: const EdgeInsets.only(top: 5, left: 16, right: 16),
+            child: TextFormField(
+              initialValue: 'john.appleseed@gmail.com',
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.alternate_email),
+                hintText: AppStrings.emailaddress,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding: const EdgeInsets.symmetric(vertical: 5),
+              ),
+
+            ),
+
+
+    ),
+            Container(
+
+              margin: EdgeInsets.fromLTRB(30,20,0,0),
+              child: Text(
+                AppStrings.password,
+                style: TextStyle(color: AppColors.emailaddress, fontSize: 16),
+              ),
+
+
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 5, left: 16, right: 16),
+
+              child:  TextFormField(
+                obscureText: true,
+                initialValue: '********',
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock),
+                  hintText: 'Password',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 5),
                 ),
               ),
 
-              const SizedBox(height: 30),
 
-              // Email TextField
-              CustomLabel(text: labelText),
-              const SizedBox(height: 6),
-              CustomInputField(hintText: hintText, icon: Icons.email_outlined),
-              const SizedBox(height: 30),
+            ),
+            const SizedBox(height: 30),
 
-              // Continue Button
-              SizedBox(
-                height: 35,
+            Container(
+              margin: const EdgeInsets.only(top: 24, left: 16, right: 16), // margin added here
+              child: SizedBox(
                 width: double.infinity,
-                child: CustomButton(
-                  text: 'Continue',
-                  backgroundColor: const Color(0xFFB7F58C),
-                  textColor: Colors.black,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AccountCreation()),
-                    );
-                  },
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.btnGetstarted,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                  ),
+                  child: Text(
+                    AppStrings.btncontinue,
+                    style: GoogleFonts.roboto(
+                      color: AppColors.btnInvite,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+
+
+          ],
         ),
-      ),
-    );
+      );
   }
 }

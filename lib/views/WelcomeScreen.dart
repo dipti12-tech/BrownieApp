@@ -1,4 +1,5 @@
 import 'package:browniepoints/views/LoginScreen.dart';
+import 'package:browniepoints/views/LoginScreenNew.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/CustomButton.dart';
@@ -64,7 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const LoginScreen(isInvite: false,)),
+                          MaterialPageRoute(builder: (context) => const LoginScreenNew(isInvite: false,)),
                         );
                       },
                     ),
@@ -79,7 +80,7 @@ class WelcomeScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const LoginScreen(isInvite: true,)),
+                          MaterialPageRoute(builder: (context) => const LoginScreenNew(isInvite: true,)),
                         );
                       },
                     ),

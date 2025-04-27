@@ -1,4 +1,4 @@
-import 'package:browniepoints/views/Splashscreen.dart';
+import 'package:browniepoints/views/SplashScreen.dart';
 import 'package:browniepoints/views/WelcomeScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +6,7 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
@@ -18,8 +18,6 @@ class MyApp extends StatelessWidget{
       }
     );
   }
-
-
 }
 
 

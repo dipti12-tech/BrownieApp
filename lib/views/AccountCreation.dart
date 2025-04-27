@@ -1,11 +1,6 @@
 import 'package:browniepoints/widgets/CustomDateInputField.dart';
 import 'package:browniepoints/widgets/CustomDropdownField.dart';
 import 'package:browniepoints/widgets/CustomInputField.dart';
-import 'package:browniepoints/widgets/CustomInputField.dart';
-import 'package:browniepoints/widgets/CustomInputField.dart';
-import 'package:browniepoints/widgets/CustomInputField.dart';
-import 'package:browniepoints/widgets/CustomInputField.dart';
-import 'package:browniepoints/widgets/CustomInputField.dart';
 import 'package:browniepoints/widgets/CustomLabel.dart';
 import 'package:flutter/material.dart';
 import '../widgets/CustomButton.dart';
@@ -25,48 +20,56 @@ class _AccountCreationState extends State<AccountCreation> {
       backgroundColor: const Color(0xFFFDECCE), // Light peach background
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(15),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back),
+                  icon: Image.asset(
+                    'assets/images/backbutton.png',  // <-- your image path
+                    width: 35,
+                    height: 35,
+                  ),
                   onPressed: () {},
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "Welcome",
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.orange,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 25.0), // <-- Add left padding here
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "Welcome",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.orange,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "Let's get you set up",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                            SizedBox(height: 5),
+                            Text(
+                              "Let's get you set up",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
+
                     const SizedBox(width: 5),
                     SizedBox(
                       height: 150, // Adjust size based on your image
                       width: 130,
                       child: Image.asset(
-                        'assets/images/ic_welcome.png',  // <-- put your image in assets folder
+                        'assets/images/splashscreenart.png',  // <-- put your image in assets folder
                         fit: BoxFit.cover,
                       ),
                     ),
