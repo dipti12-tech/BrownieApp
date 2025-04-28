@@ -1,3 +1,4 @@
+import 'package:browniepoints/utils/appstring.dart';
 import 'package:browniepoints/utils/colors.dart';
 import 'package:browniepoints/views/AccountCreation.dart';
 import 'package:browniepoints/widgets/CustomButton.dart';
@@ -80,7 +81,7 @@ class LoginScreenNew extends StatelessWidget {
               // Email TextField
               CustomLabel(text: labelText),
               const SizedBox(height: 6),
-              CustomInputField(hintText: hintText, icon: Icons.email_outlined),
+              CustomInputField(hintText: hintText, icon: Icons.alternate_email_rounded),
               const SizedBox(height: 30),
 
               // Continue Button
@@ -88,9 +89,9 @@ class LoginScreenNew extends StatelessWidget {
                 height: 35,
                 width: double.infinity,
                 child: CustomButton(
-                  text: 'Continue',
+                  text: AppStrings.btncontinue,
                   backgroundColor: AppColors.btnGetstarted,
-                  textColor: Colors.black,
+                  textColor: AppColors.btnInvite,
                   onPressed: () {
                     Navigator.push(
                       context,

@@ -62,7 +62,7 @@ class WelcomeScreen extends StatelessWidget {
                     child: CustomButton(
                       text: 'Get Started',
                       backgroundColor: AppColors.btnGetstarted,
-                      textColor: Colors.black,
+                      textColor: AppColors.btnInvite,
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -77,7 +77,7 @@ class WelcomeScreen extends StatelessWidget {
                     child: CustomButton(
                       text: 'I Have an Invitation Code',
                       backgroundColor: AppColors.btnInvite,
-                      textColor: Colors.white,
+                      textColor: AppColors.btnGetstarted,
                       onPressed: () {
                         Navigator.push(
                           context,

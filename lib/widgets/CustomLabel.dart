@@ -11,7 +11,7 @@ class CustomLabel extends StatelessWidget {
       text,
       style: const TextStyle(
         fontSize: 14,
-        color: Colors.black,
+        color: Color(0xFF5C5C5C),
       ),
     );
   }

@@ -73,7 +73,7 @@ class _AccountCreationState extends State<AccountCreation> {
                       width: 130,
                       child: Image.asset(
                         'assets/images/splashscreenart.png',
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fitHeight,
                       ),
                     ),
                   ],
@@ -193,7 +193,7 @@ class _AccountCreationState extends State<AccountCreation> {
                   child: CustomButton(
                     text: 'Continue',
                     backgroundColor: AppColors.btnGetstarted,
-                    textColor: Colors.black,
+                    textColor: AppColors.btnInvite,
                     onPressed: () {
                       Navigator.push(
                         context,

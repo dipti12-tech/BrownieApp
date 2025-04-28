@@ -30,11 +30,11 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
             side:  BorderSide(color: AppColors.btnInvite, width: 1.0),
           ),
-          elevation: 0, // Optional: Set to 0 for flat look
+          elevation: 0,
         ),
         child: Text(
           text,
-          style: const TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 14),
         ),
       ),
     );

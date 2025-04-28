@@ -23,6 +23,7 @@ class CustomButtonQuestionaries extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 10),
           side: const BorderSide(color: Colors.black),
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
