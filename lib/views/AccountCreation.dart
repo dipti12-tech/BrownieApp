@@ -1,3 +1,5 @@
+import 'package:browniepoints/views/LoginScreen.dart';
+import 'package:browniepoints/views/OnBoardingStart.dart';
 import 'package:browniepoints/widgets/CustomDateInputField.dart';
 import 'package:browniepoints/widgets/CustomDropdownField.dart';
 import 'package:browniepoints/widgets/CustomInputField.dart';
@@ -70,7 +72,7 @@ class _AccountCreationState extends State<AccountCreation> {
                       height: 150, // Adjust size based on your image
                       width: 130,
                       child: Image.asset(
-                        'assets/images/splashscreenart.png',  // <-- put your image in assets folder
+                        'assets/images/splashscreenart.png',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -195,7 +197,7 @@ class _AccountCreationState extends State<AccountCreation> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AccountCreation()),
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
                       );
                     },
                   ),

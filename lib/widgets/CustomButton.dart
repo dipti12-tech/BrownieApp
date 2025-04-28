@@ -1,3 +1,4 @@
+import 'package:browniepoints/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class CustomButton extends StatelessWidget {
           foregroundColor: textColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
-            side: const BorderSide(color: Colors.black, width: 1.5), // ← This adds the border
+            side:  BorderSide(color: AppColors.btnInvite, width: 1.0),
           ),
           elevation: 0, // Optional: Set to 0 for flat look
         ),

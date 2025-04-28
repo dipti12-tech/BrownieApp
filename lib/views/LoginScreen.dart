@@ -1,6 +1,8 @@
 
 import 'package:browniepoints/utils/appstring.dart';
 import 'package:browniepoints/utils/colors.dart';
+import 'package:browniepoints/views/OnBoardingStart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -116,11 +118,16 @@ Container(
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OnBoardingStart()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.btnGetstarted,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
