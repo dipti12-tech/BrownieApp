@@ -1,6 +1,7 @@
 import 'package:browniepoints/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -34,7 +35,10 @@ class CustomButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: const TextStyle(fontSize: 14),
+          style: GoogleFonts.roboto(
+            fontSize: 14,
+
+          ),
         ),
       ),
     );

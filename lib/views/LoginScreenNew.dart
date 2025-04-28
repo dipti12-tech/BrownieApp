@@ -66,13 +66,14 @@ class LoginScreenNew extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // Image (you can replace with actual asset or network image)
               Center(
                 child: Image.asset(
-                  'assets/images/ic_welcome.png', // Add this image in your assets
+                  'assets/images/ic_welcome.png',
                   height: 340,
                   width: 240,
                   fit: BoxFit.contain,
+                  color: AppColors.onboardingTextColor.withOpacity(0.5),
+                  colorBlendMode: BlendMode.srcIn,
                 ),
               ),
 

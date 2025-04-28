@@ -97,7 +97,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            // left & right margin
             child: SizedBox(
               height: 35,
               width: double.infinity,

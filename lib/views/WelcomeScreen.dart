@@ -50,10 +50,12 @@ class WelcomeScreen extends StatelessWidget {
                   )
                 ],
               ),
-              Image.asset(
-                'assets/images/ic_welcome.png', // Save your image as this in assets
-                height: 280,
+               Image.asset(
+                'assets/images/ic_welcome.png',
+                height: 340,
+                width: 240,
                 fit: BoxFit.contain,
+
               ),
               Column(
                 children: [

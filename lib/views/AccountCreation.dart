@@ -1,3 +1,4 @@
+import 'package:browniepoints/utils/appstring.dart';
 import 'package:browniepoints/views/LoginScreen.dart';
 import 'package:browniepoints/views/OnBoardingStart.dart';
 import 'package:browniepoints/widgets/CustomDateInputField.dart';
@@ -191,7 +192,7 @@ class _AccountCreationState extends State<AccountCreation> {
                   height: 35,
                   width: double.infinity,
                   child: CustomButton(
-                    text: 'Continue',
+                    text: AppStrings.btncontinue,
                     backgroundColor: AppColors.btnGetstarted,
                     textColor: AppColors.btnInvite,
                     onPressed: () {
