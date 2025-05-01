@@ -68,7 +68,7 @@ class WelcomeScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const LoginScreenNew(isInvite: false,)),
+                          MaterialPageRoute(builder: (context) =>  LoginScreenNew(isInvite: false,)),
                         );
                       },
                     ),
@@ -83,7 +83,7 @@ class WelcomeScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const LoginScreenNew(isInvite: true,)),
+                          MaterialPageRoute(builder: (context) =>  LoginScreenNew(isInvite: true,)),
                         );
                       },
                     ),

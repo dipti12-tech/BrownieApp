@@ -1,20 +1,27 @@
+import 'dart:math';
+
 import 'package:browniepoints/utils/appstring.dart';
 import 'package:browniepoints/utils/colors.dart';
-import 'package:browniepoints/views/AccountCreation.dart';
 import 'package:browniepoints/widgets/CustomButton.dart';
 import 'package:browniepoints/widgets/CustomInputField.dart';
 import 'package:browniepoints/widgets/CustomLabel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../viewmodels/LoginUserExistsViewModel.dart';
 
 class LoginScreenNew extends StatelessWidget {
   final bool isInvite;
-  const LoginScreenNew({super.key, this.isInvite = false});
+  LoginScreenNew({super.key, this.isInvite = false});
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final labelText = isInvite ? "* Invitation Code" : "* Email Address";
     final hintText = isInvite ? "Code" : "Email";
-    final firstText = isInvite ? "Your partner is waiting for you to\njoin them" : "Your journey to a more fulfilling\nrelationship begins here";
+    final firstText =
+        isInvite
+            ? "Your partner is waiting for you to\njoin them"
+            : "Your journey to a more fulfilling\nrelationship begins here";
 
     return Scaffold(
       backgroundColor: AppColors.onboardingBg,
@@ -30,7 +37,7 @@ class LoginScreenNew extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 icon: Image.asset(
-                  'assets/images/backbutton.png',  // <-- your image path
+                  'assets/images/backbutton.png', // <-- your image path
                   width: 35,
                   height: 35,
                 ),
@@ -82,7 +89,11 @@ class LoginScreenNew extends StatelessWidget {
               // Email TextField
               CustomLabel(text: labelText),
               const SizedBox(height: 6),
-              CustomInputField(hintText: hintText, icon: Icons.alternate_email_rounded),
+              CustomInputField(
+                hintText: hintText,
+                controller: emailController,
+                icon: Icons.alternate_email_rounded,
+              ),
               const SizedBox(height: 30),
 
               // Continue Button
@@ -94,13 +105,28 @@ class LoginScreenNew extends StatelessWidget {
                   backgroundColor: AppColors.btnGetstarted,
                   textColor: AppColors.btnInvite,
                   onPressed: () {
-                    Navigator.push(
+                    //
+                    String email = emailController.text.trim();
+                    if (email.isNotEmpty) {
+                      print("email entered@@"+ email);
+                      final viewModel = Provider.of<LoginUserExistsViewModel>(
+                        context,
+                        listen: false,
+                      );
+                      viewModel.checkUserExists(context, email);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text(AppStrings.enteremail)),
+                      );
+                    }
+                  },
+
+                  /*Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => AccountCreation()),
-                    );
-                  },
+                    );*/
                 ),
-              )
+              ),
             ],
           ),
         ),

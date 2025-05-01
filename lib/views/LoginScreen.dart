@@ -9,6 +9,7 @@ import '../widgets/CustomButton.dart';
 import '../widgets/CustomInputField.dart';
 
 class LoginScreen extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
     return _LoginScreenState();
@@ -16,6 +17,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,10 +74,10 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            // margin left & right
             child: CustomInputField(
               hintText: "john.appleseed@gmail.com",
               icon: Icons.alternate_email_rounded,
+              controller: emailController,
             ),
           ),
           const SizedBox(height: 30),
@@ -91,6 +95,8 @@ class _LoginScreenState extends State<LoginScreen> {
             child: CustomInputField(
               hintText: "**********",
               icon: Icons.password_rounded,
+              controller: passwordController,
+
             ),
           ),
           const SizedBox(height: 30),

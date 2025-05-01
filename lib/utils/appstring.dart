@@ -30,5 +30,8 @@ static const String theirFirstName="* Their First Name";
 static const String theirLastname= "* Their Last Name";
 static const String theiremailaddress= "* Their Email Address";
 
+static const String enteremail= "Please enter an email";
+//Apis
+static const String userexists= "https://browniepointssapi.onaotc.com/check_user_exists/";
 
 }

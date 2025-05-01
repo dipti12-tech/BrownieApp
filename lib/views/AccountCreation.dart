@@ -3,11 +3,11 @@ import 'package:browniepoints/views/LoginScreen.dart';
 import 'package:browniepoints/views/OnBoardingStart.dart';
 import 'package:browniepoints/widgets/CustomDateInputField.dart';
 import 'package:browniepoints/widgets/CustomDropdownField.dart';
-import 'package:browniepoints/widgets/CustomInputField.dart';
 import 'package:browniepoints/widgets/CustomLabel.dart';
 import 'package:flutter/material.dart';
 import '../utils/colors.dart';
 import '../widgets/CustomButton.dart';
+import '../widgets/CustomInputField.dart';
 
 class AccountCreation extends StatefulWidget {
   @override
@@ -17,11 +17,18 @@ class AccountCreation extends StatefulWidget {
 class _AccountCreationState extends State<AccountCreation> {
   final _formKey = GlobalKey<FormState>();
   bool is18OrOlder = false;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController countryController = TextEditingController();
+  final TextEditingController firstnameController = TextEditingController();
+  final TextEditingController lastnameController = TextEditingController();
+  final TextEditingController createpasswdController = TextEditingController();
+  final TextEditingController confirmpaswdController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.onboardingBg, // Light peach background
+      backgroundColor: AppColors.onboardingBg,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(15),
@@ -88,7 +95,7 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* First Name"),
-                          CustomInputField(hintText: "Name", icon: Icons.person_outline),
+                         CustomInputField(hintText: "Name", icon: Icons.person_outline, controller: firstnameController),
                         ],
                       ),
                     ),
@@ -98,7 +105,7 @@ class _AccountCreationState extends State<AccountCreation> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomLabel(text: "* Last Name"),
-                            CustomInputField(hintText: "Last Name", icon: Icons.person_outline),
+                            CustomInputField(hintText: "Last Name", icon: Icons.person_outline, controller: lastnameController),
                           ],
                         )
                     )
@@ -139,7 +146,7 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* Country"),
-                          CustomInputField(hintText: "Enter Country", icon: Icons.flag_outlined),
+                          CustomInputField(hintText: "Enter Country", icon: Icons.flag_outlined, controller: countryController),
                         ],
                       ),
                     ),
@@ -149,7 +156,7 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* City"),
-                          CustomInputField(hintText: "Enter City", icon: Icons.location_city),
+                          CustomInputField(hintText: "Enter City", icon: Icons.location_city, controller: cityController),
                         ],
                       ),
                     )
@@ -158,11 +165,11 @@ class _AccountCreationState extends State<AccountCreation> {
                 const SizedBox(height: 15),
 
                 CustomLabel(text: "* Create Password"),
-                CustomInputField(hintText: "Enter Password", icon: Icons.lock_outline, isPassword: true),
+                CustomInputField(hintText: "Enter Password", icon: Icons.lock_outline, isPassword: true, controller: createpasswdController),
                 const SizedBox(height: 15),
 
                 CustomLabel(text: '* Confirm Password',),
-                CustomInputField(hintText: "Confirm Password", icon: Icons.lock_outline, isPassword: true),
+                CustomInputField(hintText: "Confirm Password", icon: Icons.lock_outline, isPassword: true, controller: confirmpaswdController),
                 const SizedBox(height: 15),
 
                 // Checkbox

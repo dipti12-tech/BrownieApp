@@ -17,6 +17,8 @@ class OnBoardingFour extends StatefulWidget {
 }
 
 class _OnBoardingFourState extends State<OnBoardingFour> {
+  final TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,6 +127,7 @@ class _OnBoardingFourState extends State<OnBoardingFour> {
                 child: CustomInputField(
                   hintText: "john.appleseed@gmail.com",
                   icon: Icons.alternate_email_rounded,
+                  controller: emailController,
                 ),
               ),
               const SizedBox(height: 30),
