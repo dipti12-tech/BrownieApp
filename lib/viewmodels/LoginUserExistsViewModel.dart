@@ -1,4 +1,5 @@
 import 'package:browniepoints/views/AccountCreation.dart';
+import 'package:browniepoints/views/LoginScreen.dart';
 import 'package:browniepoints/views/OnBoardingStart.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class LoginUserExistsViewModel extends ChangeNotifier {
       }else{
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => OnBoardingStart()),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
         );
       }
     } catch (e) {
@@ -36,4 +37,5 @@ class LoginUserExistsViewModel extends ChangeNotifier {
       );
     }
   }
+
 }

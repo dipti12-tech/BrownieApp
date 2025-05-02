@@ -126,7 +126,7 @@ class _OnBoardingFourState extends State<OnBoardingFour> {
                 // margin left & right
                 child: CustomInputField(
                   hintText: "john.appleseed@gmail.com",
-                  icon: Icons.alternate_email_rounded,
+                  icon: Icon(Icons.alternate_email_rounded),
                   controller: emailController,
                 ),
               ),

@@ -33,5 +33,6 @@ static const String theiremailaddress= "* Their Email Address";
 static const String enteremail= "Please enter an email";
 //Apis
 static const String userexists= "https://browniepointssapi.onaotc.com/check_user_exists/";
+static const String invitecode= "https://browniepointssapi.onaotc.com/check_invite_code/";
 
 }
