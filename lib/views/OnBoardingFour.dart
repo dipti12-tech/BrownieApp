@@ -179,32 +179,32 @@ class _OnBoardingFourState extends State<OnBoardingFour> {
 
                             if (response != null && response.status == 200) {
                               print("✅ SignUp Success:\n${response.toString()}");
-                              Fluttertoast.showToast(
-                                msg: "Signup successful!",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                backgroundColor: Colors.green,
-                                textColor: Colors.white,
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Signup successful!")),
                               );
                             }
                             else {
                               // Show error message
                               print("❌ SignUp Failed:\n$response");
-
-                              Fluttertoast.showToast(
-                                msg: "Signup failed: ${response?.message ?? 'Unknown error'}",
-                                backgroundColor: Colors.red,
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Signup failed: Unknown error")),
                               );
                             }
                           }catch (e) {
                             print("🔥 Exception during signup: $e");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Signup error: ")),
+                            );
                             Fluttertoast.showToast(
-                              msg: "Signup error: $e",
-                              backgroundColor: Colors.red,
+                                msg: "Signup error: $e",
+                                backgroundColor: Colors.red,
                             );
                           }
                         }
                         else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Signup successful!")),
+                          );
                           Fluttertoast.showToast(
                             msg: "Incomplete signup data",
                             backgroundColor: Colors.orange,

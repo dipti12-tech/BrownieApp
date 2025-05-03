@@ -17,7 +17,7 @@ class OnBoardingStart extends  StatefulWidget{
     void saveSelectedAnswer() async {
       if (selectedAnswer != null) {
         await SharedPrefs().updateSignUpRequest(
-            {"email_id": selectedAnswer}
+            {"relationship_status": selectedAnswer}
         );
       }
     }

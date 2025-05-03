@@ -5,6 +5,7 @@ import 'package:browniepoints/widgets/CustomDateInputField.dart';
 import 'package:browniepoints/widgets/CustomDropdownField.dart';
 import 'package:browniepoints/widgets/CustomLabel.dart';
 import 'package:flutter/material.dart';
+import '../utils/GeneratePasswdmd5.dart';
 import '../utils/SharedPrefs.dart';
 import '../utils/colors.dart';
 import '../widgets/CustomButton.dart';
@@ -22,11 +23,12 @@ class _AccountCreationState extends State<AccountCreation> {
   final countryController = TextEditingController();
   final firstnameController = TextEditingController();
   final lastnameController = TextEditingController();
-  final createpasswdController = TextEditingController();
-  final confirmpaswdController = TextEditingController();
+  final createPasswordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final cityController = TextEditingController();
   String selectedDob = "";
   String selectedGender = "";
+  GeneratePasswdmd5 generatePasswdmd5= GeneratePasswdmd5();
 
 
   @override
@@ -182,11 +184,11 @@ class _AccountCreationState extends State<AccountCreation> {
                 const SizedBox(height: 15),
 
                 CustomLabel(text: "* Create Password"),
-                CustomInputField(hintText: "Enter Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: createpasswdController),
+                CustomInputField(hintText: "Enter Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: createPasswordController),
                 const SizedBox(height: 15),
 
                 CustomLabel(text: '* Confirm Password',),
-                CustomInputField(hintText: "Confirm Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: confirmpaswdController),
+                CustomInputField(hintText: "Confirm Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: confirmPasswordController),
                 const SizedBox(height: 15),
 
                 // Checkbox
@@ -220,20 +222,28 @@ class _AccountCreationState extends State<AccountCreation> {
                     backgroundColor: AppColors.btnGetstarted,
                     textColor: AppColors.btnInvite,
                     onPressed: () async{
-                      await SharedPrefs().updateSignUpRequest({
-                        "first_name": firstnameController.text,
-                        "last_name": lastnameController.text,
-                        "country": countryController.text,
-                        "city": cityController.text,
-                        "password": confirmpaswdController.text,
-                        "gender": selectedGender,
-                        "dob": selectedDob,
-                        "gender": selectedGender,
-                      });
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => OnBoardingStart()),
-                      );
+                      if (createPasswordController.text != confirmPasswordController.text){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Passwords do not match")),
+                        );
+                        return;
+                      }else{
+                        String password = generatePasswdmd5.generateMd5hash(confirmPasswordController.text);
+                        await SharedPrefs().updateSignUpRequest({
+                          "first_name": firstnameController.text,
+                          "last_name": lastnameController.text,
+                          "country": countryController.text,
+                          "city": cityController.text,
+                          "password": password,
+                          "gender": selectedGender,
+                          "dob": selectedDob,
+                          "gender": selectedGender,
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => OnBoardingStart()),
+                        );
+                      }
                     },
                   ),
                 )
