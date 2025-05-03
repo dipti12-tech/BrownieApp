@@ -4,9 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:browniepoints/views/OnBoardingThird.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../utils/SharedPrefs.dart';
 import '../utils/appstring.dart';
 import '../utils/colors.dart';
+import '../viewmodels/SignupViewModel.dart';
 import '../widgets/CustomButtonQuestionaries.dart';
 import '../widgets/CustomInputField.dart';
 import '../widgets/CustomLabel.dart';
@@ -17,7 +21,9 @@ class OnBoardingFour extends StatefulWidget {
 }
 
 class _OnBoardingFourState extends State<OnBoardingFour> {
-  final TextEditingController emailController = TextEditingController();
+  final emailController = TextEditingController();
+  final partnerFirstName = TextEditingController();
+  final partnerLastName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +103,7 @@ class _OnBoardingFourState extends State<OnBoardingFour> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomLabel(text: AppStrings.theirFirstName),
-                        CustomInviteField(hintText: "Name"),
+                        CustomInviteField(hintText: "Name", controller: partnerFirstName,),
                       ],
                     ),
                   ),
@@ -107,7 +113,7 @@ class _OnBoardingFourState extends State<OnBoardingFour> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomLabel(text: AppStrings.theirLastname),
-                        CustomInviteField(hintText: "Surname"),
+                        CustomInviteField(hintText: "Surname", controller: partnerLastName,),
                       ],
                     ),
                   )
@@ -156,7 +162,55 @@ class _OnBoardingFourState extends State<OnBoardingFour> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
+                        await SharedPrefs().updateSignUpRequest({
+                          "partner_first_name": partnerFirstName.text,
+                          "partner_last_name": partnerLastName.text,
+                          "partner_email_id": emailController.text,
+                        });
+
+                        final signUpRequest = await SharedPrefs().getSignUpRequest();
+                        if (signUpRequest != null) {
+                          print("📤 SignUp Request Data:\n${signUpRequest.toJson()}");
+                          final viewModel = Provider.of<SignUpViewModel>(context, listen: false);
+                          try{
+                            await viewModel.signUp(signUpRequest);
+                            final response = viewModel.response;
+
+                            if (response != null && response.status == 200) {
+                              print("✅ SignUp Success:\n${response.toString()}");
+                              Fluttertoast.showToast(
+                                msg: "Signup successful!",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                              );
+                            }
+                            else {
+                              // Show error message
+                              print("❌ SignUp Failed:\n$response");
+
+                              Fluttertoast.showToast(
+                                msg: "Signup failed: ${response?.message ?? 'Unknown error'}",
+                                backgroundColor: Colors.red,
+                              );
+                            }
+                          }catch (e) {
+                            print("🔥 Exception during signup: $e");
+                            Fluttertoast.showToast(
+                              msg: "Signup error: $e",
+                              backgroundColor: Colors.red,
+                            );
+                          }
+                        }
+                        else {
+                          Fluttertoast.showToast(
+                            msg: "Incomplete signup data",
+                            backgroundColor: Colors.orange,
+                          );
+                        }
+
                       /*  Navigator.push(
                           context,
                           MaterialPageRoute(

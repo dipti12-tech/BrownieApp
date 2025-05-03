@@ -5,6 +5,7 @@ import 'package:browniepoints/widgets/CustomDateInputField.dart';
 import 'package:browniepoints/widgets/CustomDropdownField.dart';
 import 'package:browniepoints/widgets/CustomLabel.dart';
 import 'package:flutter/material.dart';
+import '../utils/SharedPrefs.dart';
 import '../utils/colors.dart';
 import '../widgets/CustomButton.dart';
 import '../widgets/CustomInputField.dart';
@@ -17,13 +18,16 @@ class AccountCreation extends StatefulWidget {
 class _AccountCreationState extends State<AccountCreation> {
   final _formKey = GlobalKey<FormState>();
   bool is18OrOlder = false;
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController countryController = TextEditingController();
-  final TextEditingController firstnameController = TextEditingController();
-  final TextEditingController lastnameController = TextEditingController();
-  final TextEditingController createpasswdController = TextEditingController();
-  final TextEditingController confirmpaswdController = TextEditingController();
-  final TextEditingController cityController = TextEditingController();
+  final emailController = TextEditingController();
+  final countryController = TextEditingController();
+  final firstnameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final createpasswdController = TextEditingController();
+  final confirmpaswdController = TextEditingController();
+  final cityController = TextEditingController();
+  String selectedDob = "";
+  String selectedGender = "";
+
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +125,13 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* Date of Birth"),
-                          CustomDateInputField(hintText: "dd/mm/yyyy", icon: Icons.calendar_today)
+                          CustomDateInputField(
+                            hintText: "dd/mm/yyyy",
+                            icon: Icons.calendar_today,
+                            onDateSelected: (value) {
+                              setState(() => selectedDob = value);
+                            },
+                          )
                         ],
                       ),
                     ),
@@ -131,7 +141,14 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* Gender"),
-                          CustomDropdownField(hintText: "Gender", items: ["Male", "Female", "Other"]),
+                          CustomDropdownField(
+                              hintText: "Gender",
+                              items: ["Male", "Female", "Other"],
+                              onChanged: (value) {
+                                setState(() => selectedGender = value ?? ''
+                                );
+                              },
+                          ),
                         ],
                       ),
                     )
@@ -202,10 +219,20 @@ class _AccountCreationState extends State<AccountCreation> {
                     text: AppStrings.btncontinue,
                     backgroundColor: AppColors.btnGetstarted,
                     textColor: AppColors.btnInvite,
-                    onPressed: () {
+                    onPressed: () async{
+                      await SharedPrefs().updateSignUpRequest({
+                        "first_name": firstnameController.text,
+                        "last_name": lastnameController.text,
+                        "country": countryController.text,
+                        "city": cityController.text,
+                        "password": confirmpaswdController.text,
+                        "gender": selectedGender,
+                        "dob": selectedDob,
+                        "gender": selectedGender,
+                      });
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        MaterialPageRoute(builder: (context) => OnBoardingStart()),
                       );
                     },
                   ),

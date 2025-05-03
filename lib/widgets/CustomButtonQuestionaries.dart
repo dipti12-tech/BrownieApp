@@ -8,10 +8,14 @@ import '../utils/colors.dart';
 class CustomButtonQuestionaries extends StatelessWidget {
 
   final String text;
+  final bool isSelected;
+  final VoidCallback onTap;
 
   const CustomButtonQuestionaries({
     super.key,
     required this.text,
+    required this.isSelected,
+    required this.onTap,
   });
 
   @override
@@ -19,11 +23,11 @@ class CustomButtonQuestionaries extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: onTap,
         style: OutlinedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          side: const BorderSide(color: Colors.black),
-          backgroundColor: Colors.white,
+          side: BorderSide(color: isSelected ? AppColors.btnInvite : Colors.black),
+          backgroundColor: isSelected ? AppColors.btnInvite : Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
@@ -32,7 +36,7 @@ class CustomButtonQuestionaries extends StatelessWidget {
           text,
           style: GoogleFonts.roboto(
             fontSize: 14,
-            color: AppColors.splashBg,
+            color: isSelected ? Colors.white : AppColors.splashBg,
           ),
         ),
       ),

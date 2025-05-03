@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class CustomDropdownField extends StatelessWidget {
   final String hintText;
   final List<String> items;
+  final Function(String?)? onChanged;
 
   const CustomDropdownField({
     required this.hintText,
     required this.items,
+    this.onChanged,
     super.key,
   });
 
@@ -31,7 +33,7 @@ class CustomDropdownField extends StatelessWidget {
             child: Text(item, style: const TextStyle(fontSize: 12)),
           );
         }).toList(),
-        onChanged: (value) {},
+        onChanged: onChanged,
         validator: (value) => value == null ? "Required" : null,
       ),
     );

@@ -2,6 +2,7 @@ import 'package:browniepoints/views/OnBoardingThird.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../utils/SharedPrefs.dart';
 import '../utils/appstring.dart';
 import '../utils/colors.dart';
 import '../widgets/CustomButtonQuestionaries.dart';
@@ -12,6 +13,18 @@ class OnBoardingSecond extends StatefulWidget {
 }
 
 class _OnBoardingSecondState extends State<OnBoardingSecond> {
+  String? selectedAnswer;
+  Set<String> selectedAnswers = {};
+  final bool isMultiSelect = true;
+
+  void saveSelectedAnswer() async {
+    if (selectedAnswers.isNotEmpty) {
+      await SharedPrefs().updateSignUpRequest({
+        "bp_benefits": selectedAnswers.toList(),
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,23 +50,42 @@ class _OnBoardingSecondState extends State<OnBoardingSecond> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.check_circle, color: AppColors.splashBg, size: 16),
+                        Icon(
+                          Icons.check_circle,
+                          color: AppColors.splashBg,
+                          size: 16,
+                        ),
                         const SizedBox(width: 8),
-                        Container(height: 2, width: 50, color: Colors.grey[400]),
+                        Container(
+                          height: 2,
+                          width: 50,
+                          color: Colors.grey[400],
+                        ),
                         const SizedBox(width: 8),
-                        const Icon(Icons.radio_button_checked_rounded, color:AppColors.splashBg, size: 16),
+                        const Icon(
+                          Icons.radio_button_checked_rounded,
+                          color: AppColors.splashBg,
+                          size: 16,
+                        ),
                         const SizedBox(width: 8),
-                        Container(height: 2, width: 50, color: Colors.grey[400]),
+                        Container(
+                          height: 2,
+                          width: 50,
+                          color: Colors.grey[400],
+                        ),
                         const SizedBox(width: 8),
                         const Icon(Icons.circle, color: Colors.grey, size: 8),
                         const SizedBox(width: 8),
-                        Container(height: 2, width: 50, color: Colors.grey[400]),
+                        Container(
+                          height: 2,
+                          width: 50,
+                          color: Colors.grey[400],
+                        ),
                         const SizedBox(width: 8),
                         const Icon(Icons.circle, color: Colors.grey, size: 8),
                       ],
                     ),
-                  )
-                  ,
+                  ),
                 ],
               ),
               const SizedBox(height: 32),
@@ -77,11 +109,47 @@ class _OnBoardingSecondState extends State<OnBoardingSecond> {
 
               const SizedBox(height: 230),
 
-              CustomButtonQuestionaries(text: AppStrings.ansmypartner),
+              CustomButtonQuestionaries(
+                text: AppStrings.ansmypartner,
+                isSelected: selectedAnswers.contains(AppStrings.ansmypartner),
+                onTap: () {
+                  setState(() {
+                    if (selectedAnswers.contains(AppStrings.ansmypartner)) {
+                      selectedAnswers.remove(AppStrings.ansmypartner);
+                    } else {
+                      selectedAnswers.add(AppStrings.ansmypartner);
+                    }
+                  });
+                },
+              ),
               const SizedBox(height: 16),
-              CustomButtonQuestionaries(text: AppStrings.ansrealtionship),
+              CustomButtonQuestionaries(
+                text: AppStrings.ansrealtionship,
+                isSelected: selectedAnswers.contains(AppStrings.ansrealtionship),
+                onTap: () {
+                  setState(() {
+                    if (selectedAnswers.contains(AppStrings.ansrealtionship)) {
+                      selectedAnswers.remove(AppStrings.ansrealtionship);
+                    } else {
+                      selectedAnswers.add(AppStrings.ansrealtionship);
+                    }
+                  });
+                },
+              ),
               const SizedBox(height: 16),
-              CustomButtonQuestionaries(text: AppStrings.ansplans),
+              CustomButtonQuestionaries(
+                text: AppStrings.ansplans,
+                isSelected: selectedAnswers.contains(AppStrings.ansplans),
+                onTap: () {
+                  setState(() {
+                    if (selectedAnswers.contains(AppStrings.ansplans)) {
+                      selectedAnswers.remove(AppStrings.ansplans);
+                    } else {
+                      selectedAnswers.add(AppStrings.ansplans);
+                    }
+                  });
+                },
+              ),
 
               const Spacer(),
 
@@ -110,18 +178,19 @@ class _OnBoardingSecondState extends State<OnBoardingSecond> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
+                        saveSelectedAnswer();
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => OnBoardingThird()),
+                          MaterialPageRoute(
+                            builder: (context) => OnBoardingThird(),
+                          ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.btnGetstarted,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(
-                            color: AppColors.btnInvite,
-                          ),
+                          side: BorderSide(color: AppColors.btnInvite),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 5),
                       ),

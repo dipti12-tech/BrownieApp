@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class CustomDateInputField extends StatefulWidget {
   final String hintText;
   final IconData icon;
+  final Function(String)? onDateSelected;
 
   const CustomDateInputField({
     required this.hintText,
     required this.icon,
+    this.onDateSelected,
     super.key,
   });
 
@@ -32,7 +34,9 @@ class _CustomDateInputFieldState extends State<CustomDateInputField> {
             lastDate: DateTime(2100),
           );
           if (pickedDate != null) {
-            controller.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+            String formatted = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+            controller.text = formatted;
+            widget.onDateSelected?.call(formatted);
           }
         },
         decoration: InputDecoration(

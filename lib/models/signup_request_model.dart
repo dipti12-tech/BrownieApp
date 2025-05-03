@@ -12,6 +12,10 @@ class SignUpRequest {
   String relationshipStatus;
   String shareUpdates;
   List<String> bpBenefits;
+  String partnerEmailId;
+  String partnerFirstName;
+  String partnerLastName;
+
 
   SignUpRequest({
     required this.firstName,
@@ -27,6 +31,9 @@ class SignUpRequest {
     required this.relationshipStatus,
     required this.shareUpdates,
     required this.bpBenefits,
+    required this.partnerEmailId,
+    required this.partnerFirstName,
+    required this.partnerLastName,
   });
 
   Map<String, dynamic> toJson() => {
@@ -43,5 +50,8 @@ class SignUpRequest {
     "relationship_status": relationshipStatus,
     "share_updates": shareUpdates,
     "bp_benefits": bpBenefits,
+    "partner_email_id": partnerEmailId,
+    "partner_first_name": partnerFirstName,
+    "partner_last_name": partnerLastName,
   };
 }

@@ -4,6 +4,7 @@ import 'package:browniepoints/views/OnBoardingThird.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../utils/SharedPrefs.dart';
 import '../utils/appstring.dart';
 import '../utils/colors.dart';
 import '../widgets/CustomButtonQuestionaries.dart';
@@ -14,6 +15,16 @@ class OnBoardingThird extends StatefulWidget {
 }
 
 class _OnBoardingThirdState extends State<OnBoardingThird> {
+  String? selectedAnswer;
+
+  void saveSelectedAnswer() async {
+    if (selectedAnswer != null) {
+      await SharedPrefs().updateSignUpRequest({
+        "share_updates": selectedAnswer,
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,23 +50,46 @@ class _OnBoardingThirdState extends State<OnBoardingThird> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.check_circle, color: AppColors.splashBg, size: 16),
+                        Icon(
+                          Icons.check_circle,
+                          color: AppColors.splashBg,
+                          size: 16,
+                        ),
                         const SizedBox(width: 8),
-                        Container(height: 2, width: 50, color: Colors.grey[400]),
+                        Container(
+                          height: 2,
+                          width: 50,
+                          color: Colors.grey[400],
+                        ),
                         const SizedBox(width: 8),
-                        const Icon(Icons.check_circle, color: AppColors.splashBg, size: 16),
+                        const Icon(
+                          Icons.check_circle,
+                          color: AppColors.splashBg,
+                          size: 16,
+                        ),
                         const SizedBox(width: 8),
-                        Container(height: 2, width: 50, color: Colors.grey[400]),
+                        Container(
+                          height: 2,
+                          width: 50,
+                          color: Colors.grey[400],
+                        ),
                         const SizedBox(width: 8),
-                        const Icon(Icons.radio_button_checked, color:AppColors.splashBg, size: 16),
+                        const Icon(
+                          Icons.radio_button_checked,
+                          color: AppColors.splashBg,
+                          size: 16,
+                        ),
                         const SizedBox(width: 8),
-                        Container(height: 2, width: 50, color: Colors.grey[400]),
+                        Container(
+                          height: 2,
+                          width: 50,
+                          color: Colors.grey[400],
+                        ),
                         const SizedBox(width: 8),
                         const Icon(Icons.circle, color: Colors.grey, size: 8),
                       ],
                     ),
                   ),
-
                 ],
               ),
               const SizedBox(height: 32),
@@ -87,11 +121,35 @@ class _OnBoardingThirdState extends State<OnBoardingThird> {
               ),
               const SizedBox(height: 150),
 
-              CustomButtonQuestionaries(text: AppStrings.ansonlymypartner),
+              CustomButtonQuestionaries(
+                text: AppStrings.ansonlymypartner,
+                isSelected: selectedAnswer == AppStrings.ansonlymypartner,
+                onTap: () {
+                  setState(() {
+                    selectedAnswer = AppStrings.ansonlymypartner;
+                  });
+                },
+              ),
               const SizedBox(height: 16),
-              CustomButtonQuestionaries(text: AppStrings.ansmyfriends),
+              CustomButtonQuestionaries(
+                text: AppStrings.ansmyfriends,
+                isSelected: selectedAnswer == AppStrings.ansmyfriends,
+                onTap: () {
+                  setState(() {
+                    selectedAnswer = AppStrings.ansmyfriends;
+                  });
+                },
+              ),
               const SizedBox(height: 16),
-              CustomButtonQuestionaries(text: AppStrings.anseveryone),
+              CustomButtonQuestionaries(
+                text: AppStrings.anseveryone,
+                isSelected: selectedAnswer == AppStrings.anseveryone,
+                onTap: () {
+                  setState(() {
+                    selectedAnswer = AppStrings.anseveryone;
+                  });
+                },
+              ),
 
               const Spacer(),
 
@@ -120,6 +178,7 @@ class _OnBoardingThirdState extends State<OnBoardingThird> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
+                        saveSelectedAnswer();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -131,9 +190,7 @@ class _OnBoardingThirdState extends State<OnBoardingThird> {
                         backgroundColor: AppColors.btnGetstarted,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(
-                            color: AppColors.btnInvite,
-                          ),
+                          side: BorderSide(color: AppColors.btnInvite),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 5),
                       ),
