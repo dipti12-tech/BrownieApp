@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: CustomInputField(
               hintText: "john.appleseed@gmail.com",
-              icon: Icons.alternate_email_rounded,
+              icon:Icon(Icons.alternate_email_rounded),
               controller: emailController,
             ),
           ),
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: CustomInputField(
               hintText: "**********",
-              icon: Icons.password_rounded,
+              icon: Icon(Icons.password_rounded),
               controller: passwordController,
 
             ),

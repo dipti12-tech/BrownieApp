@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomInputField extends StatelessWidget {
   final String hintText;
-  final IconData icon;
+  final Widget icon;
   final bool isPassword;
   final TextEditingController controller;
 
@@ -22,7 +22,7 @@ class CustomInputField extends StatelessWidget {
         controller: controller,
         obscureText: isPassword,
         decoration: InputDecoration(
-          prefixIcon: Icon(icon, size: 20),
+          prefixIcon: icon,
           hintText: hintText,
           hintStyle: const TextStyle(fontSize: 12),
           filled: true,

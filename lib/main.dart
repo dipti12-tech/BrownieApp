@@ -1,10 +1,14 @@
+import 'package:browniepoints/utils/SharedPrefs.dart';
+import 'package:browniepoints/viewmodels/InviteViewModel.dart';
 import 'package:browniepoints/viewmodels/LoginUserExistsViewModel.dart';
 import 'package:browniepoints/views/SplashScreen.dart';
 import 'package:browniepoints/views/WelcomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefs().init();
   runApp(MyApp());
 }
 
@@ -16,6 +20,7 @@ class MyApp extends StatelessWidget {
       return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LoginUserExistsViewModel()),
+          ChangeNotifierProvider(create: (_) => InviteViewModel()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

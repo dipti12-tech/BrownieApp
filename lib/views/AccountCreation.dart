@@ -95,7 +95,7 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* First Name"),
-                         CustomInputField(hintText: "Name", icon: Icons.person_outline, controller: firstnameController),
+                         CustomInputField(hintText: "Name", icon: Icon(Icons.person_outline), controller: firstnameController),
                         ],
                       ),
                     ),
@@ -105,7 +105,7 @@ class _AccountCreationState extends State<AccountCreation> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomLabel(text: "* Last Name"),
-                            CustomInputField(hintText: "Last Name", icon: Icons.person_outline, controller: lastnameController),
+                            CustomInputField(hintText: "Last Name", icon: Icon(Icons.person_outline), controller: lastnameController),
                           ],
                         )
                     )
@@ -146,7 +146,7 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* Country"),
-                          CustomInputField(hintText: "Enter Country", icon: Icons.flag_outlined, controller: countryController),
+                          CustomInputField(hintText: "Enter Country", icon: Icon(Icons.flag_outlined), controller: countryController),
                         ],
                       ),
                     ),
@@ -156,7 +156,7 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* City"),
-                          CustomInputField(hintText: "Enter City", icon: Icons.location_city, controller: cityController),
+                          CustomInputField(hintText: "Enter City", icon: Icon(Icons.location_city), controller: cityController),
                         ],
                       ),
                     )
@@ -165,11 +165,11 @@ class _AccountCreationState extends State<AccountCreation> {
                 const SizedBox(height: 15),
 
                 CustomLabel(text: "* Create Password"),
-                CustomInputField(hintText: "Enter Password", icon: Icons.lock_outline, isPassword: true, controller: createpasswdController),
+                CustomInputField(hintText: "Enter Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: createpasswdController),
                 const SizedBox(height: 15),
 
                 CustomLabel(text: '* Confirm Password',),
-                CustomInputField(hintText: "Confirm Password", icon: Icons.lock_outline, isPassword: true, controller: confirmpaswdController),
+                CustomInputField(hintText: "Confirm Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: confirmpaswdController),
                 const SizedBox(height: 15),
 
                 // Checkbox

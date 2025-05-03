@@ -1,24 +1,46 @@
 import 'dart:convert';
+import 'package:browniepoints/models/Partner.dart';
 import 'package:browniepoints/utils/appstring.dart';
 import 'package:http/http.dart' as http;
 
+import '../utils/SharedPrefs.dart';
+
 class ApiService {
-
+  //Email Exixts API
   Future<Map<String, dynamic>> checkUserExists(String email) async {
-  final url = Uri.parse(AppStrings.userexists);
+    final url = Uri.parse(AppStrings.userexists);
 
-  final response = await http.post(
-  url,
-  headers: {'Content-Type': 'application/json'},
-  body: jsonEncode({'email_id': email}),
-  );
-  if (response.statusCode == 200) {
-    print("RESPONSE***"+response.body);
-    return jsonDecode(response.body);
-  } else {
-  throw Exception('Server error');
-  }
-  }
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'email_id': email}),
+    );
+    if (response.statusCode == 200) {
+      print("RESPONSE***" + response.body);
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Server error');
+    }
   }
 
-
+  // Invite API
+  Future<Map<String, dynamic>> checkInviteCode(String inviteCode) async {
+    PartnerDetails? partnerDetails;
+    final url = Uri.parse(AppStrings.invitecode);
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'invite_code': inviteCode}),
+    );
+    if (response.statusCode == 200) {
+      final inviteResponse = Partner.fromJson(jsonDecode(response.body));
+      await SharedPrefs().savePartnerDetails(inviteResponse.partnerDetails);
+      partnerDetails = await SharedPrefs().getPartnerDetails();
+      print("Partner Details: ${partnerDetails!.firstName.toString()}");
+      print('Partner Name: ${inviteResponse.partnerDetails.firstName}');
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Server error');
+    }
+  }
+}
