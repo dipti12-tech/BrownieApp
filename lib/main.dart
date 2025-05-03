@@ -1,6 +1,7 @@
 import 'package:browniepoints/utils/SharedPrefs.dart';
 import 'package:browniepoints/viewmodels/InviteViewModel.dart';
 import 'package:browniepoints/viewmodels/LoginUserExistsViewModel.dart';
+import 'package:browniepoints/viewmodels/LoginUserViewModel.dart';
 import 'package:browniepoints/viewmodels/SignupViewModel.dart';
 import 'package:browniepoints/views/AccountCreation.dart';
 import 'package:browniepoints/views/SplashScreen.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => LoginUserExistsViewModel()),
           ChangeNotifierProvider(create: (_) => InviteViewModel()),
+          ChangeNotifierProvider(create: (_) => LoginUserViewModel()),
           ChangeNotifierProvider(create: (_) => SignUpViewModel()),
         ],
         child: MaterialApp(

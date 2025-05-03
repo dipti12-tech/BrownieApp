@@ -3,6 +3,7 @@ import 'package:browniepoints/models/Partner.dart';
 import 'package:browniepoints/utils/appstring.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/LoginResponse.dart';
 import '../models/signup_request_model.dart';
 import '../models/signup_response_model.dart';
 import '../utils/SharedPrefs.dart';
@@ -42,6 +43,30 @@ class ApiService {
       partnerDetails = await SharedPrefs().getPartnerDetails();
       print("Partner Details: ${partnerDetails!.firstName.toString()}");
       print('Partner Name: ${inviteResponse.partnerDetails.firstName}');
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Server error');
+    }
+  }
+
+  //Login User API
+  Future<Map<String, dynamic>> loginUser(String email,String passwd) async {
+    UserDetails? userDetails;
+    final url = Uri.parse(AppStrings.login);
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'uname': email,
+        'pwd': passwd,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final userResponse = LoginResponse.fromJson(jsonDecode(response.body));
+      await SharedPrefs().saveUserDetails(userResponse.details);
+      userDetails = await SharedPrefs().getUserDetails();
+
       return jsonDecode(response.body);
     } else {
       throw Exception('Server error');
