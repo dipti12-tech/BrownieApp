@@ -1,3 +1,5 @@
+
+
 class AppStrings{
 static const String appName ="Brownie Pointss";
 static const String loginTitle = "Welcome Back!";
@@ -34,5 +36,6 @@ static const String enteremail= "Please enter an email";
 //Apis
 static const String userexists= "https://browniepointssapi.onaotc.com/check_user_exists/";
 static const String invitecode= "https://browniepointssapi.onaotc.com/check_invite_code/";
+static const String login= "https://browniepointssapi.onaotc.com/login/";
 
 }

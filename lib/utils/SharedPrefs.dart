@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:browniepoints/models/LoginResponse.dart';
 import 'package:browniepoints/models/Partner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,6 +45,31 @@ class SharedPrefs {
     print('Partner details saved!');
   }
 
+
+  //Save Data user details
+  Future<void> saveUserDetails(UserDetails details) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String jsonString = jsonEncode({
+      'profile_id': details.profileId,
+      'user_name': details.userName,
+      'first_name': details.firstName,
+      'last_name': details.lastName,
+      'gender': details.gender,
+      'dob': details.dob,
+      'email_id': details.emailId,
+      'phone': details.phone,
+      'address': details.address,
+      'country': details.country,
+      'nick_name': details.nickName,
+      'partner_id': details.partnerId,
+      'relationship_status': details.relationshipStatus,
+      'couple_id': details.coupleId
+    });
+    await prefs.setString('user_details', jsonString);
+    print('User details saved!');
+  }
+
   // Retrieve Data
   Future<PartnerDetails?> getPartnerDetails() async {
     final prefs = await SharedPreferences.getInstance();
@@ -55,6 +81,17 @@ class SharedPrefs {
     return null;
   }
 
+  //get User details
+
+  Future<UserDetails?> getUserDetails() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? jsonString = prefs.getString('user_details');
+    if (jsonString != null) {
+      Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+      return UserDetails.fromJson(jsonMap);
+    }
+    return null;
+  }
   /*  String? getString(String key) {
     return _prefs?.getString(key);
   }*/
