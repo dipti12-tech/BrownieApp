@@ -7,6 +7,7 @@ import 'package:browniepoints/widgets/CustomInputField.dart';
 import 'package:browniepoints/widgets/CustomLabel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../utils/SharedPrefs.dart';
 import '../viewmodels/LoginUserExistsViewModel.dart';
 
 class LoginScreenNew extends StatelessWidget {
@@ -115,7 +116,7 @@ class LoginScreenNew extends StatelessWidget {
                   text: AppStrings.btncontinue,
                   backgroundColor: AppColors.btnGetstarted,
                   textColor: AppColors.btnInvite,
-                  onPressed: () {
+                  onPressed: () async{
                     if (isInvite) {
                       print("INVITE@@$isInvite");
                       String invitecode = inviteController.text.trim();
@@ -127,6 +128,9 @@ class LoginScreenNew extends StatelessWidget {
                     } else {
                     String email = emailController.text.trim();
                     if (email.isNotEmpty) {
+                      await SharedPrefs().updateSignUpRequest({
+                        "email_id": emailController.text,
+                      });
                         print("email entered@@$email");
                         final viewModel = Provider.of<LoginUserExistsViewModel>(
                           context,

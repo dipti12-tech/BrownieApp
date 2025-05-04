@@ -4,7 +4,11 @@ import 'package:browniepoints/views/OnBoardingStart.dart';
 import 'package:browniepoints/widgets/CustomDateInputField.dart';
 import 'package:browniepoints/widgets/CustomDropdownField.dart';
 import 'package:browniepoints/widgets/CustomLabel.dart';
+import 'package:browniepoints/widgets/CustomNumberInputField.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '../utils/GeneratePasswdmd5.dart';
+import '../utils/SharedPrefs.dart';
 import '../utils/colors.dart';
 import '../widgets/CustomButton.dart';
 import '../widgets/CustomInputField.dart';
@@ -17,13 +21,34 @@ class AccountCreation extends StatefulWidget {
 class _AccountCreationState extends State<AccountCreation> {
   final _formKey = GlobalKey<FormState>();
   bool is18OrOlder = false;
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController countryController = TextEditingController();
-  final TextEditingController firstnameController = TextEditingController();
-  final TextEditingController lastnameController = TextEditingController();
-  final TextEditingController createpasswdController = TextEditingController();
-  final TextEditingController confirmpaswdController = TextEditingController();
-  final TextEditingController cityController = TextEditingController();
+  final emailController = TextEditingController();
+  final countryController = TextEditingController(text: "UK");
+  final firstnameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final createPasswordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final cityController = TextEditingController();
+  final mobileNumberController = TextEditingController(text: "44");
+
+  String selectedDob = "";
+  String selectedGender = "";
+  GeneratePasswdmd5 generatePasswdmd5= GeneratePasswdmd5();
+
+  String _formatDob(String dob) {
+    try {
+      final parts = dob.split('/');
+      if (parts.length == 3) {
+        final d = parts[0].padLeft(2, '0');
+        final m = parts[1].padLeft(2, '0');
+        final y = parts[2];
+        return "$y-$m-$d";
+      }
+      return dob;
+    } catch (_) {
+      return dob;
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +138,7 @@ class _AccountCreationState extends State<AccountCreation> {
                 ),
                 const SizedBox(height: 15),
 
-                // Second Row: DOB & Gender
+
                 Row(
                   children: [
                     Expanded(
@@ -121,7 +146,13 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* Date of Birth"),
-                          CustomDateInputField(hintText: "dd/mm/yyyy", icon: Icons.calendar_today)
+                          CustomDateInputField(
+                            hintText: "dd/mm/yyyy",
+                            icon: Icons.calendar_today,
+                            onDateSelected: (value) {
+                              setState(() => selectedDob = value);
+                            },
+                          )
                         ],
                       ),
                     ),
@@ -131,7 +162,14 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* Gender"),
-                          CustomDropdownField(hintText: "Gender", items: ["Male", "Female", "Other"]),
+                          CustomDropdownField(
+                              hintText: "Gender",
+                              items: ["Male", "Female", "Other"],
+                              onChanged: (value) {
+                                setState(() => selectedGender = value ?? ''
+                                );
+                              },
+                          ),
                         ],
                       ),
                     )
@@ -164,12 +202,16 @@ class _AccountCreationState extends State<AccountCreation> {
                 ),
                 const SizedBox(height: 15),
 
+                CustomLabel(text: "* Mobile No."),
+                CustomNumberInputField(hintText: "Enter Mob No.", icon: Icon(Icons.phone), controller: mobileNumberController),
+                const SizedBox(height: 15),
+
                 CustomLabel(text: "* Create Password"),
-                CustomInputField(hintText: "Enter Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: createpasswdController),
+                CustomInputField(hintText: "Enter Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: createPasswordController),
                 const SizedBox(height: 15),
 
                 CustomLabel(text: '* Confirm Password',),
-                CustomInputField(hintText: "Confirm Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: confirmpaswdController),
+                CustomInputField(hintText: "Confirm Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: confirmPasswordController),
                 const SizedBox(height: 15),
 
                 // Checkbox
@@ -202,11 +244,31 @@ class _AccountCreationState extends State<AccountCreation> {
                     text: AppStrings.btncontinue,
                     backgroundColor: AppColors.btnGetstarted,
                     textColor: AppColors.btnInvite,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                      );
+                    onPressed: () async{
+                      if (createPasswordController.text != confirmPasswordController.text){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Passwords do not match")),
+                        );
+                        return;
+                      }else{
+                        String password = generatePasswdmd5.generateMd5hash(confirmPasswordController.text);
+                        await SharedPrefs().updateSignUpRequest({
+                          "first_name": firstnameController.text,
+                          "last_name": lastnameController.text,
+                          "country": countryController.text,
+                          "city": cityController.text,
+                          "password": password,
+                          "gender": selectedGender,
+                          "dob": _formatDob(selectedDob),
+                          "gender": selectedGender,
+                          "phone": mobileNumberController.text,
+                        });
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => OnBoardingStart()),
+                        );
+                      }
                     },
                   ),
                 )

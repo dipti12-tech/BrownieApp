@@ -5,12 +5,23 @@ import 'package:browniepoints/widgets/CustomButtonQuestionaries.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../utils/SharedPrefs.dart';
+
 class OnBoardingStart extends  StatefulWidget{
   @override
     _OnBoardingStartState createState() => _OnBoardingStartState();
-
   }
   class _OnBoardingStartState extends State<OnBoardingStart> {
+    String? selectedAnswer;
+
+    void saveSelectedAnswer() async {
+      if (selectedAnswer != null) {
+        await SharedPrefs().updateSignUpRequest(
+            {"relationship_status": selectedAnswer}
+        );
+      }
+    }
+
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -76,11 +87,35 @@ class OnBoardingStart extends  StatefulWidget{
 
                 const SizedBox(height: 180),
 
-                CustomButtonQuestionaries(text: AppStrings.answelive),
+                CustomButtonQuestionaries(
+                  text: AppStrings.answelive,
+                  isSelected: selectedAnswer == AppStrings.answelive,
+                  onTap: () {
+                    setState(() {
+                      selectedAnswer = AppStrings.answelive;
+                    });
+                  },
+                ),
                 const SizedBox(height: 16),
-                CustomButtonQuestionaries(text: AppStrings.anstowncity),
+                CustomButtonQuestionaries(
+                  text: AppStrings.anstowncity,
+                  isSelected: selectedAnswer == AppStrings.anstowncity,
+                  onTap: () {
+                    setState(() {
+                      selectedAnswer = AppStrings.anstowncity;
+                    });
+                  },
+                ),
                 const SizedBox(height: 16),
-                CustomButtonQuestionaries(text: AppStrings.anstownscities),
+                CustomButtonQuestionaries(
+                  text: AppStrings.anstownscities,
+                  isSelected: selectedAnswer == AppStrings.anstownscities,
+                  onTap: () {
+                    setState(() {
+                      selectedAnswer = AppStrings.anstownscities;
+                    });
+                  },
+                ),
 
                 const Spacer(),
 
@@ -112,6 +147,7 @@ class OnBoardingStart extends  StatefulWidget{
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
+                          saveSelectedAnswer();
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => OnBoardingSecond()),

@@ -4,9 +4,12 @@ import 'package:browniepoints/utils/appstring.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/LoginResponse.dart';
+import '../models/signup_request_model.dart';
+import '../models/signup_response_model.dart';
 import '../utils/SharedPrefs.dart';
 
 class ApiService {
+  final _baseUrl = "https://browniepointssapi.onaotc.com";
 
   //Email Exixts API
   Future<Map<String, dynamic>> checkUserExists(String email) async {
@@ -67,6 +70,32 @@ class ApiService {
       return jsonDecode(response.body);
     } else {
       throw Exception('Server error');
+    }
+  }
+
+  // Signup API
+  Future<SignUpResponse> signUp(SignUpRequest request) async {
+    final url = Uri.parse("$_baseUrl/sign_up/");
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(request.toJson()),
+      );
+
+      print("SIGNUP STATUS CODE: ${response.statusCode}");
+      print("SIGNUP RESPONSE BODY: ${response.body}");
+
+      if (response.statusCode == 200) {
+        return SignUpResponse.fromJson(jsonDecode(response.body));
+      } else {
+        final error = jsonDecode(response.body);
+        throw Exception("Signup failed: ${error['message'] ?? 'Unknown error'}");
+      }
+    } catch (e) {
+      print("🔥 Exception during signup: $e");
+      rethrow;
     }
   }
 }

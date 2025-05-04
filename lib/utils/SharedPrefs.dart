@@ -3,6 +3,8 @@ import 'package:browniepoints/models/LoginResponse.dart';
 import 'package:browniepoints/models/Partner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/signup_request_model.dart';
+
 class SharedPrefs {
   static final SharedPrefs _instance = SharedPrefs._internal();
 
@@ -92,6 +94,57 @@ class SharedPrefs {
     }
     return null;
   }
+
+  Future<void> updateSignUpRequest(Map<String, dynamic> partialData) async {
+    final prefs = await SharedPreferences.getInstance();
+    String? existing = prefs.getString('signup_request');
+
+    Map<String, dynamic> currentData = existing != null
+        ? jsonDecode(existing)
+        : {};
+
+    currentData.addAll(partialData);
+
+    await prefs.setString('signup_request', jsonEncode(currentData));
+    print('Partial SignUpRequest data updated!');
+  }
+
+
+  Future<void> saveSignUpRequest(SignUpRequest request) async {
+    final prefs = await SharedPreferences.getInstance();
+    String jsonString = jsonEncode(request.toJson());
+    await prefs.setString('signup_request', jsonString);
+    print('SignUpRequest saved!');
+  }
+
+  Future<SignUpRequest?> getSignUpRequest() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? jsonString = prefs.getString('signup_request');
+    if (jsonString != null) {
+      Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+      return SignUpRequest(
+        firstName: jsonMap["first_name"] ?? '',
+        lastName: jsonMap["last_name"] ?? '',
+        dob: jsonMap["dob"] ?? '',
+        gender: jsonMap["gender"] ?? '',
+        email: jsonMap["email_id"] ?? '',
+        phone: jsonMap["phone"] ?? '',
+        city: jsonMap["city"] ?? '',
+        country: jsonMap["country"] ?? '',
+        nickName: jsonMap["nick_name"] ?? '',
+        password: jsonMap["password"] ?? '',
+        relationshipStatus: jsonMap["relationship_status"] ?? '',
+        shareUpdates: jsonMap["share_updates"] ?? '',
+        bpBenefits: List<String>.from(jsonMap["bp_benefits"] ?? []),
+        partnerEmailId: jsonMap["partner_email_id"] ?? '',
+        partnerFirstName: jsonMap["partner_first_name"] ?? '',
+        partnerLastName: jsonMap["partner_last_name"] ?? '',
+      );
+    }
+    return null;
+  }
+
+
   /*  String? getString(String key) {
     return _prefs?.getString(key);
   }*/

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class CustomInviteField extends StatelessWidget {
   final String hintText;
+  final TextEditingController controller;
 
   const CustomInviteField({
     required this.hintText,
+    required this.controller,
     super.key,
   });
 
@@ -13,6 +15,7 @@ class CustomInviteField extends StatelessWidget {
     return SizedBox(
       height: 35,
       child: TextFormField(
+        controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: const TextStyle(fontSize: 12),
