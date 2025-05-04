@@ -103,7 +103,6 @@ class SharedPrefs {
         ? jsonDecode(existing)
         : {};
 
-    // Merge existing with new
     currentData.addAll(partialData);
 
     await prefs.setString('signup_request', jsonEncode(currentData));

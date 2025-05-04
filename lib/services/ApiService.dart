@@ -73,6 +73,7 @@ class ApiService {
     }
   }
 
+  // Signup API
   Future<SignUpResponse> signUp(SignUpRequest request) async {
     final url = Uri.parse("$_baseUrl/sign_up/");
 

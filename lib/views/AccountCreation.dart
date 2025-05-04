@@ -134,7 +134,7 @@ class _AccountCreationState extends State<AccountCreation> {
                 ),
                 const SizedBox(height: 15),
 
-                // Second Row: DOB & Gender
+
                 Row(
                   children: [
                     Expanded(

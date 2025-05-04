@@ -185,7 +185,6 @@ class _OnBoardingFourState extends State<OnBoardingFour> {
                               );
                             }
                             else {
-                              // Show error message
                               print("❌ SignUp Failed:\n$response");
                               Fluttertoast.showToast(
                                 msg: "Signup failed",
