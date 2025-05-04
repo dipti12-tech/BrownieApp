@@ -4,7 +4,9 @@ import 'package:browniepoints/views/OnBoardingStart.dart';
 import 'package:browniepoints/widgets/CustomDateInputField.dart';
 import 'package:browniepoints/widgets/CustomDropdownField.dart';
 import 'package:browniepoints/widgets/CustomLabel.dart';
+import 'package:browniepoints/widgets/CustomNumberInputField.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../utils/GeneratePasswdmd5.dart';
 import '../utils/SharedPrefs.dart';
 import '../utils/colors.dart';
@@ -20,12 +22,14 @@ class _AccountCreationState extends State<AccountCreation> {
   final _formKey = GlobalKey<FormState>();
   bool is18OrOlder = false;
   final emailController = TextEditingController();
-  final countryController = TextEditingController();
+  final countryController = TextEditingController(text: "UK");
   final firstnameController = TextEditingController();
   final lastnameController = TextEditingController();
   final createPasswordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final cityController = TextEditingController();
+  final mobileNumberController = TextEditingController(text: "44");
+
   String selectedDob = "";
   String selectedGender = "";
   GeneratePasswdmd5 generatePasswdmd5= GeneratePasswdmd5();
@@ -198,6 +202,10 @@ class _AccountCreationState extends State<AccountCreation> {
                 ),
                 const SizedBox(height: 15),
 
+                CustomLabel(text: "* Mobile No."),
+                CustomNumberInputField(hintText: "Enter Mob No.", icon: Icon(Icons.phone), controller: mobileNumberController),
+                const SizedBox(height: 15),
+
                 CustomLabel(text: "* Create Password"),
                 CustomInputField(hintText: "Enter Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: createPasswordController),
                 const SizedBox(height: 15),
@@ -253,7 +261,9 @@ class _AccountCreationState extends State<AccountCreation> {
                           "gender": selectedGender,
                           "dob": _formatDob(selectedDob),
                           "gender": selectedGender,
+                          "phone": mobileNumberController.text,
                         });
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => OnBoardingStart()),
