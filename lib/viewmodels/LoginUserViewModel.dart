@@ -22,7 +22,7 @@ class LoginUserViewModel extends ChangeNotifier {
       if (msg == 'Login successful') {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => OnBoardingStart()),
+          MaterialPageRoute(builder: (context) => OnBoardingStart(source: '')),
         );
       }
     } catch (e) {

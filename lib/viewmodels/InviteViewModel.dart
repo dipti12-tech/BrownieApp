@@ -28,7 +28,7 @@ class InviteViewModel extends ChangeNotifier {
     if (status == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => AccountCreation()),
+        MaterialPageRoute(builder: (context) => AccountCreation(source : 'invite')),
       );
     }
   }

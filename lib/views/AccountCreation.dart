@@ -7,6 +7,7 @@ import 'package:browniepoints/widgets/CustomLabel.dart';
 import 'package:browniepoints/widgets/CustomNumberInputField.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../models/Partner.dart';
 import '../utils/GeneratePasswdmd5.dart';
 import '../utils/SharedPrefs.dart';
 import '../utils/colors.dart';
@@ -14,6 +15,10 @@ import '../widgets/CustomButton.dart';
 import '../widgets/CustomInputField.dart';
 
 class AccountCreation extends StatefulWidget {
+  String source;
+
+  AccountCreation({super.key, required this.source});
+
   @override
   _AccountCreationState createState() => _AccountCreationState();
 }
@@ -32,7 +37,47 @@ class _AccountCreationState extends State<AccountCreation> {
 
   String selectedDob = "";
   String selectedGender = "";
-  GeneratePasswdmd5 generatePasswdmd5= GeneratePasswdmd5();
+  GeneratePasswdmd5 generatePasswdmd5 = GeneratePasswdmd5();
+  PartnerDetails? partnerDetails;
+
+  @override
+  void initState() {
+    super.initState();
+    print("Coming from screen : ${widget.source}");
+    _loadPartnerDetails();
+  }
+
+  void _loadPartnerDetails() async {
+    partnerDetails = await SharedPrefs().getPartnerDetails();
+
+    if (widget.source == 'invite' && partnerDetails != null) {
+      setState(() {
+        firstnameController.text = partnerDetails!.firstName;
+        lastnameController.text = partnerDetails!.lastName;
+        selectedDob = partnerDetails!.dob;
+        selectedGender = partnerDetails!.gender;
+        countryController.text = partnerDetails!.country;
+        cityController.text = partnerDetails!.city;
+        mobileNumberController.text = "";
+        createPasswordController.text = "";
+        confirmPasswordController.text = "";
+        is18OrOlder = true;
+      });
+    } else {
+      setState(() {
+        firstnameController.clear();
+        lastnameController.clear();
+        selectedDob = "";
+        selectedGender = "";
+        countryController.text = "UK";
+        cityController.clear();
+        mobileNumberController.text = "44";
+        createPasswordController.clear();
+        confirmPasswordController.clear();
+        is18OrOlder = false;
+      });
+    }
+  }
 
   String _formatDob(String dob) {
     try {
@@ -49,7 +94,6 @@ class _AccountCreationState extends State<AccountCreation> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +108,7 @@ class _AccountCreationState extends State<AccountCreation> {
               children: [
                 IconButton(
                   icon: Image.asset(
-                    'assets/images/backbutton.png',  // <-- your image path
+                    'assets/images/backbutton.png', // <-- your image path
                     width: 35,
                     height: 35,
                   ),
@@ -75,7 +119,8 @@ class _AccountCreationState extends State<AccountCreation> {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.only(left: 25.0), // <-- Add left padding here
+                        padding: EdgeInsets.only(left: 25.0),
+                        // <-- Add left padding here
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
@@ -120,24 +165,31 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* First Name"),
-                         CustomInputField(hintText: "Name", icon: Icon(Icons.person_outline), controller: firstnameController),
+                          CustomInputField(
+                            hintText: "Name",
+                            icon: Icon(Icons.person_outline),
+                            controller: firstnameController,
+                          ),
                         ],
                       ),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomLabel(text: "* Last Name"),
-                            CustomInputField(hintText: "Last Name", icon: Icon(Icons.person_outline), controller: lastnameController),
-                          ],
-                        )
-                    )
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomLabel(text: "* Last Name"),
+                          CustomInputField(
+                            hintText: "Last Name",
+                            icon: Icon(Icons.person_outline),
+                            controller: lastnameController,
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 15),
-
 
                 Row(
                   children: [
@@ -152,7 +204,7 @@ class _AccountCreationState extends State<AccountCreation> {
                             onDateSelected: (value) {
                               setState(() => selectedDob = value);
                             },
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -163,16 +215,15 @@ class _AccountCreationState extends State<AccountCreation> {
                         children: [
                           CustomLabel(text: "* Gender"),
                           CustomDropdownField(
-                              hintText: "Gender",
-                              items: ["Male", "Female", "Other"],
-                              onChanged: (value) {
-                                setState(() => selectedGender = value ?? ''
-                                );
-                              },
+                            hintText: "Gender",
+                            items: ["Male", "Female", "Other"],
+                            onChanged: (value) {
+                              setState(() => selectedGender = value ?? '');
+                            },
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: 15),
@@ -184,7 +235,11 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* Country"),
-                          CustomInputField(hintText: "Enter Country", icon: Icon(Icons.flag_outlined), controller: countryController),
+                          CustomInputField(
+                            hintText: "Enter Country",
+                            icon: Icon(Icons.flag_outlined),
+                            controller: countryController,
+                          ),
                         ],
                       ),
                     ),
@@ -194,24 +249,42 @@ class _AccountCreationState extends State<AccountCreation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomLabel(text: "* City"),
-                          CustomInputField(hintText: "Enter City", icon: Icon(Icons.location_city), controller: cityController),
+                          CustomInputField(
+                            hintText: "Enter City",
+                            icon: Icon(Icons.location_city),
+                            controller: cityController,
+                          ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: 15),
 
                 CustomLabel(text: "* Mobile No."),
-                CustomNumberInputField(hintText: "Enter Mob No.", icon: Icon(Icons.phone), controller: mobileNumberController),
+                CustomNumberInputField(
+                  hintText: "Enter Mob No.",
+                  icon: Icon(Icons.phone),
+                  controller: mobileNumberController,
+                ),
                 const SizedBox(height: 15),
 
                 CustomLabel(text: "* Create Password"),
-                CustomInputField(hintText: "Enter Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: createPasswordController),
+                CustomInputField(
+                  hintText: "Enter Password",
+                  icon: Icon(Icons.lock_outline),
+                  isPassword: true,
+                  controller: createPasswordController,
+                ),
                 const SizedBox(height: 15),
 
-                CustomLabel(text: '* Confirm Password',),
-                CustomInputField(hintText: "Confirm Password", icon: Icon(Icons.lock_outline), isPassword: true, controller: confirmPasswordController),
+                CustomLabel(text: '* Confirm Password'),
+                CustomInputField(
+                  hintText: "Confirm Password",
+                  icon: Icon(Icons.lock_outline),
+                  isPassword: true,
+                  controller: confirmPasswordController,
+                ),
                 const SizedBox(height: 15),
 
                 // Checkbox
@@ -244,14 +317,19 @@ class _AccountCreationState extends State<AccountCreation> {
                     text: AppStrings.btncontinue,
                     backgroundColor: AppColors.btnGetstarted,
                     textColor: AppColors.btnInvite,
-                    onPressed: () async{
-                      if (createPasswordController.text != confirmPasswordController.text){
+                    onPressed: () async {
+                      if (createPasswordController.text !=
+                          confirmPasswordController.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Passwords do not match")),
+                          const SnackBar(
+                            content: Text("Passwords do not match"),
+                          ),
                         );
                         return;
-                      }else{
-                        String password = generatePasswdmd5.generateMd5hash(confirmPasswordController.text);
+                      } else {
+                        String password = generatePasswdmd5.generateMd5hash(
+                          confirmPasswordController.text,
+                        );
                         await SharedPrefs().updateSignUpRequest({
                           "first_name": firstnameController.text,
                           "last_name": lastnameController.text,
@@ -266,12 +344,14 @@ class _AccountCreationState extends State<AccountCreation> {
 
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => OnBoardingStart()),
+                          MaterialPageRoute(
+                            builder: (context) => OnBoardingStart(source:widget.source),
+                          ),
                         );
                       }
                     },
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -280,6 +360,3 @@ class _AccountCreationState extends State<AccountCreation> {
     );
   }
 }
-
-
-

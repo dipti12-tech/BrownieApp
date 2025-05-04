@@ -94,7 +94,7 @@ class ApiService {
         throw Exception("Signup failed: ${error['message'] ?? 'Unknown error'}");
       }
     } catch (e) {
-      print("🔥 Exception during signup: $e");
+      print("Exception during signup: $e");
       rethrow;
     }
   }

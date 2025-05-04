@@ -8,6 +8,9 @@ import '../utils/colors.dart';
 import '../widgets/CustomButtonQuestionaries.dart';
 
 class OnBoardingSecond extends StatefulWidget {
+  String source;
+  OnBoardingSecond({super.key,required this.source});
+
   @override
   _OnBoardingSecondState createState() => _OnBoardingSecondState();
 }
@@ -182,7 +185,8 @@ class _OnBoardingSecondState extends State<OnBoardingSecond> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OnBoardingThird(),
+
+                            builder: (context) => OnBoardingThird(source:widget.source),
                           ),
                         );
                       },

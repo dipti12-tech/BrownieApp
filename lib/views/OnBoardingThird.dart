@@ -3,13 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:browniepoints/views/OnBoardingThird.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../utils/SharedPrefs.dart';
 import '../utils/appstring.dart';
 import '../utils/colors.dart';
+import '../viewmodels/SignupViewModel.dart';
 import '../widgets/CustomButtonQuestionaries.dart';
 
 class OnBoardingThird extends StatefulWidget {
+  String source;
+  OnBoardingThird({super.key,required this.source});
   @override
   _OnBoardingThirdState createState() => _OnBoardingThirdState();
 }
@@ -177,14 +182,61 @@ class _OnBoardingThirdState extends State<OnBoardingThird> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         saveSelectedAnswer();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OnBoardingFour(),
-                          ),
-                        );
+                        if(widget.source=='invite'){
+
+                          print("dONT SHOW INVITE SCREEN");
+
+                          final signUpRequest =  await SharedPrefs().getSignUpRequest();
+                          if (signUpRequest != null) {
+                            print("SignUp Request Data:\n${signUpRequest.toJson()}");
+                            final viewModel = Provider.of<SignUpViewModel>(context, listen: false);
+                            try{
+                              await viewModel.signUp(signUpRequest);
+                              final response = viewModel.response;
+
+                              print(response?.message );
+                              print(response?.message );
+
+                              if (response != null && response.status == 1) {
+                                print("SignUp Success:\n${response.toString()}");
+                                Fluttertoast.showToast(
+                                  msg: "Signup successful!",
+                                  backgroundColor: Colors.green,
+                                );
+                              }
+                              else {
+                                print("SignUp Failed:\n$response");
+                                Fluttertoast.showToast(
+                                  msg: "Signup failed",
+                                  backgroundColor: Colors.red,
+                                );
+                              }
+                            }catch (e) {
+                              print("Exception during signup: $e");
+                              Fluttertoast.showToast(
+                                msg: "Signup error",
+                                backgroundColor: Colors.red,
+                              );
+                            }
+                          }
+                          else {
+                            Fluttertoast.showToast(
+                              msg: "Incomplete signup data",
+                              backgroundColor: Colors.orange,
+                            );
+                          }
+
+                        }else{
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OnBoardingFour(),
+                            ),
+                          );
+                        }
+
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.btnGetstarted,

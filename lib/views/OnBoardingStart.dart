@@ -8,6 +8,10 @@ import 'package:google_fonts/google_fonts.dart';
 import '../utils/SharedPrefs.dart';
 
 class OnBoardingStart extends  StatefulWidget{
+  String source;
+
+  OnBoardingStart({super.key,required this.source});
+
   @override
     _OnBoardingStartState createState() => _OnBoardingStartState();
   }
@@ -150,7 +154,7 @@ class OnBoardingStart extends  StatefulWidget{
                           saveSelectedAnswer();
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => OnBoardingSecond()),
+                            MaterialPageRoute(builder: (context) => OnBoardingSecond(source: widget.source)),
                           );
                         },
                         style: ElevatedButton.styleFrom(

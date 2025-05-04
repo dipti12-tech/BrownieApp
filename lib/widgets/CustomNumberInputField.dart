@@ -22,19 +22,22 @@ class CustomNumberInputField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         keyboardType: TextInputType.number,
-        inputFormatters: [
-          FixedPrefixNumberFormatter(prefix: prefix),
-        ],
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: InputDecoration(
           prefixIcon: icon,
+          prefixStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
           hintText: hintText,
           hintStyle: const TextStyle(fontSize: 12),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 6.0,
+            horizontal: 12.0,
           ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         ),
         validator: (value) => value!.isEmpty ? "Required" : null,
       ),
@@ -42,15 +45,16 @@ class CustomNumberInputField extends StatelessWidget {
   }
 }
 
-
-
 class FixedPrefixNumberFormatter extends TextInputFormatter {
   final String prefix;
 
   FixedPrefixNumberFormatter({this.prefix = "44"});
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     // Block edits that remove or change the prefix
     if (!newValue.text.startsWith(prefix)) {
       return oldValue;

@@ -23,7 +23,7 @@ class LoginUserExistsViewModel extends ChangeNotifier {
       if(msg == 'New user'){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AccountCreation()),
+          MaterialPageRoute(builder: (context) => AccountCreation(source: 'New user')),
         );
       }else{
         Navigator.push(
