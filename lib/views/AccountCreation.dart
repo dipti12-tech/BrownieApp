@@ -30,6 +30,21 @@ class _AccountCreationState extends State<AccountCreation> {
   String selectedGender = "";
   GeneratePasswdmd5 generatePasswdmd5= GeneratePasswdmd5();
 
+  String _formatDob(String dob) {
+    try {
+      final parts = dob.split('/');
+      if (parts.length == 3) {
+        final d = parts[0].padLeft(2, '0');
+        final m = parts[1].padLeft(2, '0');
+        final y = parts[2];
+        return "$y-$m-$d";
+      }
+      return dob;
+    } catch (_) {
+      return dob;
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +251,7 @@ class _AccountCreationState extends State<AccountCreation> {
                           "city": cityController.text,
                           "password": password,
                           "gender": selectedGender,
-                          "dob": selectedDob,
+                          "dob": _formatDob(selectedDob),
                           "gender": selectedGender,
                         });
                         Navigator.push(
