@@ -46,7 +46,9 @@ class _OnBoardingFourState extends State<OnBoardingFour> {
                       width: 35,
                       height: 35,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
 
                   Expanded(

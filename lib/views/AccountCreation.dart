@@ -6,7 +6,6 @@ import 'package:browniepoints/widgets/CustomDropdownField.dart';
 import 'package:browniepoints/widgets/CustomLabel.dart';
 import 'package:browniepoints/widgets/CustomNumberInputField.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../models/Partner.dart';
 import '../utils/GeneratePasswdmd5.dart';
 import '../utils/SharedPrefs.dart';
@@ -112,7 +111,9 @@ class _AccountCreationState extends State<AccountCreation> {
                     width: 35,
                     height: 35,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                   Navigator.pop(context);
+                  },
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,

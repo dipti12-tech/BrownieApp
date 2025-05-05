@@ -28,7 +28,7 @@ class LoginUserExistsViewModel extends ChangeNotifier {
       }else{
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
+          MaterialPageRoute(builder: (context) => LoginScreen(source: email)),
         );
       }
     } catch (e) {

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:browniepoints/utils/appstring.dart';
 import 'package:browniepoints/utils/colors.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
 class Splashscreen extends StatefulWidget {

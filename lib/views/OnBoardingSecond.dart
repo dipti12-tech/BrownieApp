@@ -46,7 +46,10 @@ class _OnBoardingSecondState extends State<OnBoardingSecond> {
                       width: 35,
                       height: 35,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+
+                    },
                   ),
 
                   Expanded(

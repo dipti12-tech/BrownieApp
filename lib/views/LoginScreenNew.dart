@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:browniepoints/utils/appstring.dart';
 import 'package:browniepoints/utils/colors.dart';
 import 'package:browniepoints/viewmodels/InviteViewModel.dart';

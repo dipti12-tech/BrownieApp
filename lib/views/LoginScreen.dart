@@ -1,19 +1,17 @@
 import 'package:browniepoints/utils/appstring.dart';
 import 'package:browniepoints/utils/colors.dart';
 import 'package:browniepoints/viewmodels/LoginUserViewModel.dart';
-import 'package:browniepoints/views/AccountCreation.dart';
-import 'package:browniepoints/views/OnBoardingStart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../utils/GeneratePasswdmd5.dart';
-
-import '../utils/SharedPrefs.dart';
 import '../widgets/CustomButton.dart';
 import '../widgets/CustomInputField.dart';
 
 class LoginScreen extends StatefulWidget {
+  String source;
+  LoginScreen({super.key,required this.source});
   @override
   State<StatefulWidget> createState() {
     return _LoginScreenState();
@@ -24,7 +22,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   GeneratePasswdmd5 generatePasswdmd5= GeneratePasswdmd5();
-
+  @override
+  void initState() {
+    super.initState();
+    emailController.text = widget.source;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CustomInputField(
-                hintText: "john.appleseed@gmail.com",
+                hintText: widget.source,
                 icon: Icon(Icons.alternate_email_rounded),
                 controller: emailController,
               ),

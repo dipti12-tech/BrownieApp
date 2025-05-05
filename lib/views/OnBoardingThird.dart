@@ -48,7 +48,9 @@ class _OnBoardingThirdState extends State<OnBoardingThird> {
                       width: 35,
                       height: 35,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
 
                   Expanded(
@@ -116,15 +118,24 @@ class _OnBoardingThirdState extends State<OnBoardingThird> {
                 ),
               ),
 
-              const SizedBox(height: 16),
-              Text(
-                AppStrings.questionstep6,
-                style: GoogleFonts.roboto(
-                  fontSize: 18,
-                  color: AppColors.emailaddress,
+              const SizedBox(height: 40),
+              Visibility(
+                visible: widget.source == 'invite',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppStrings.questionstep6,
+                      style: GoogleFonts.roboto(
+                        fontSize: 18,
+                        color: AppColors.emailaddress,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 150),
+              const SizedBox(height: 110),
+
 
               CustomButtonQuestionaries(
                 text: AppStrings.ansonlymypartner,
@@ -185,9 +196,7 @@ class _OnBoardingThirdState extends State<OnBoardingThird> {
                       onPressed: () async {
                         saveSelectedAnswer();
                         if(widget.source=='invite'){
-
                           print("dONT SHOW INVITE SCREEN");
-
                           final signUpRequest =  await SharedPrefs().getSignUpRequest();
                           if (signUpRequest != null) {
                             print("SignUp Request Data:\n${signUpRequest.toJson()}");

@@ -44,7 +44,9 @@ class OnBoardingStart extends  StatefulWidget{
                           width: 35,
                           height: 35,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
 
                     Expanded(
