@@ -129,7 +129,15 @@ class OnBoardingStart extends  StatefulWidget{
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await SharedPrefs().updateSignUpRequest(
+                              {"relationship_status": ""}
+                          );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => OnBoardingSecond(source: widget.source)),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.btnInvite,
                           shape: RoundedRectangleBorder(

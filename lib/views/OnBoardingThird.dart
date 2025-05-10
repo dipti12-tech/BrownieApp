@@ -173,7 +173,17 @@ class _OnBoardingThirdState extends State<OnBoardingThird> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await SharedPrefs().updateSignUpRequest({
+                          "share_updates": selectedAnswer,
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OnBoardingFour(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.btnInvite,
                         shape: RoundedRectangleBorder(
