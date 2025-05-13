@@ -163,7 +163,17 @@ class _OnBoardingSecondState extends State<OnBoardingSecond> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await SharedPrefs().updateSignUpRequest({
+                          "bp_benefits": "",
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OnBoardingThird(source:widget.source),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.btnInvite,
                         shape: RoundedRectangleBorder(

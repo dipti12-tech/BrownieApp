@@ -145,7 +145,50 @@ class _OnBoardingFourState extends State<OnBoardingFour> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async{
+                        await SharedPrefs().updateSignUpRequest({
+                          "partner_first_name": "",
+                          "partner_last_name": "",
+                          "partner_email_id": "",
+                        });
+
+                        final signUpRequest = await SharedPrefs().getSignUpRequest();
+                        if (signUpRequest != null) {
+                          print("📤 SignUp Request Data:\n${signUpRequest.toJson()}");
+                          final viewModel = Provider.of<SignUpViewModel>(context, listen: false);
+                          try{
+                            await viewModel.signUp(signUpRequest);
+                            final response = viewModel.response;
+
+                            if (response != null && response.status == 1) {
+                              print("✅ SignUp Success:\n${response.toString()}");
+                              Fluttertoast.showToast(
+                                msg: "Signup successful!",
+                                backgroundColor: Colors.green,
+                              );
+                            }
+                            else {
+                              print("❌ SignUp Failed:\n$response");
+                              Fluttertoast.showToast(
+                                msg: "Signup failed",
+                                backgroundColor: Colors.red,
+                              );
+                            }
+                          }catch (e) {
+                            print("🔥 Exception during signup: $e");
+                            Fluttertoast.showToast(
+                              msg: "Signup error",
+                              backgroundColor: Colors.red,
+                            );
+                          }
+                        }
+                        else {
+                          Fluttertoast.showToast(
+                            msg: "Incomplete signup data",
+                            backgroundColor: Colors.orange,
+                          );
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.btnInvite,
                         shape: RoundedRectangleBorder(
